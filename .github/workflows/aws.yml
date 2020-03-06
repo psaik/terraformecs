@@ -43,9 +43,8 @@ jobs:
         cd cicd
         terraform init
         terraform plan
-        terraform apply -auto-approve
     
     - name: Terraform destroy
       run: |
-        sleep 120
+        # sleep 120
         terraform destroy -auto-approve
