@@ -44,5 +44,5 @@ jobs:
         terraform init
         terraform plan
         terraform apply -auto-approve
-        # sleep 120
+        sleep 600
         terraform destroy -auto-approve
