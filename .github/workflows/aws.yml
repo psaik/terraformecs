@@ -39,4 +39,6 @@ jobs:
       uses: volcano-coffee-company/setup-terraform@v1
       with:
         version: '~0.12'
-    - run: terraform apply cicd/ -no-color -input=false -auto-approve
+    - run: |
+        cd cicd
+        terraform apply -no-color -input=false -auto-approve
