@@ -34,12 +34,20 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-    
-    - name: Intall terraform and deploy
-      uses: volcano-coffee-company/setup-terraform@v1
-      with:
-        version: '~0.12'
-    - run: |
-        terraform version
+    # - name: Intall terraform and deploy
+    #   uses: volcano-coffee-company/setup-terraform@v1
+    #   with:
+    #     version: '~0.12'
+    # - run: |
+    #     terraform version
+    #     cd cicd
+    #     terraform apply -no-color -input=false -auto-approve
+
+    - name: Install Terraform
+      uses: little-core-labs/install-terraform@v1
+    - name: Terraform apply
+      run: |
         cd cicd
-        terraform apply -no-color -input=false -auto-approve
+        terraform init
+        terraform plan
+        terraform apply -auto-approve
