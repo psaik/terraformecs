@@ -34,11 +34,10 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
-    - name: Terraform apply
-      uses: kciter/terraform-apply-for-aws-action@v3
-      with:
-        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: us-east-1
-        path: cicd/
+    
+    - uses: volcano-coffee-company/setup-terraform@v1
+        with:
+          version: '~0.12'
+      - run: | 
+        terraform version
+        terraform apply cicd/ -no-color -input=false -auto-approve
