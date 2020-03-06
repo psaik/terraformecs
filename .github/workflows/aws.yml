@@ -40,5 +40,6 @@ jobs:
       with:
         version: '~0.12'
     - run: |
+        terraform version
         cd cicd
         terraform apply -no-color -input=false -auto-approve
